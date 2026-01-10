@@ -1,0 +1,90 @@
+# vim: tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+
+[user]
+  name = Andrew Fung
+
+[credential]
+  helper = store
+
+[init]
+  defaultBranch = main           # Modern branch naming standard
+
+[core]
+  pager = delta
+  excludesfile = ~/.gitignore
+  fsmonitor = true               # Speed up status via macOS FSEvents
+  untrackedCache = true          # Reduce disk I/O for status checks
+
+[interactive]
+  # Use delta for interactive hunks (like git add -p)
+  diffFilter = delta --color-only
+
+[delta]
+  # Modern features for a "light" and fast setup
+  navigate = true    # Use n/N to jump between file diffs
+  line-numbers = true
+  side-by-side = true
+  syntax-theme = Coldark-Dark # Pairs well with AdventureTime
+
+[maintenance]
+  auto = true                    # Enable background optimization globally
+
+[log]
+  date = rfc-local               # Use standard local timestamp format
+
+[column]
+  ui = auto                      # Columnar output for lists (git branch, etc)
+
+[branch]
+  sort = -committerdate          # Recent branches shown first
+
+[tag]
+  sort = version:refname         # Sort tags numerically (v1.10 > v1.2)
+
+[fetch]
+  prune = true                   # Auto-remove deleted remote refs
+  pruneTags = true               # Auto-remove deleted remote tags
+  all = true                     # Update all remotes at once
+
+[push]
+  autoSetupRemote = true         # Skip --set-upstream on new branches
+  followTags = true              # Push associated tags automatically
+
+[pull]
+  ff = only                      # Prevent accidental merge commits
+
+[rebase]
+  autoStash = true               # Auto-stash local changes on rebase
+  updateRefs = true              # Update branch stacks automatically
+  autoSquash = true              # Handle fixup! commits automatically
+
+[rerere]
+  enabled = true                 # Reuse conflict resolution records
+  autoupdate = true              # Auto-stage successful resolutions
+
+[diff]
+  algorithm = histogram          # Better diff logic for code shifts
+  colorMoved = plain             # Highlight moved code blocks
+  mnemonicPrefix = true          # Use (i)ndex/(w)orktree headers
+  tool = vimdiff
+  guitool = bc                   # Use Beyond Compare for GUI diff
+  wsErrorHighlight = all         # Highlight whitespace/tab errors
+
+[difftool]
+  prompt = false                 # Skip "Launch tool?" confirmation
+
+[difftool "bc"]
+  path = /usr/local/bin/bcomp    # Standard macOS BC5 symlink
+  trustExitCode = true
+
+[merge]
+  keepBackup = false             # No .orig files after merge
+  tool = bc
+  conflictStyle = zdiff3         # Cleanest conflict markers with context
+
+[mergetool "bc"]
+  path = /usr/local/bin/bcomp
+  trustExitCode = true
+
+[includeIf "gitdir:~/git/"]
+  path = ~/git/gitconfig

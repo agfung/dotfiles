@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -euo pipefail
+
+{{ if eq .chezmoi.os "linux" -}}
+
+PACKAGES=(
+  {{ range .packages.common }}{{ . | quote }} {{ end }}
+  {{ range .packages.arch }}{{ . | quote }} {{ end }}
+)
+yay -S --needed --noconfirm "${PACKAGES[@]}"
+
+{{ else if eq .chezmoi.os "darwin" -}}
+
+brew bundle --file=/dev/stdin <<EOF
+{{ range .packages.common -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin_casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+
+{{ end -}}

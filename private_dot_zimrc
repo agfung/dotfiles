@@ -1,0 +1,20 @@
+# 1. Environment and Input first
+zmodule environment
+zmodule input
+zmodule termtitle
+
+# 2. Providers (Modules that add aliases/functions/completions)
+zmodule git
+zmodule direnv
+zmodule run-help
+zmodule utility
+
+# 3. Completion Engine (The core)
+zmodule completion
+
+# 4. Completion UI Enhancers (Must be after 'completion')
+zmodule fzf
+zmodule Aloxaf/fzf-tab
+
+# 5. Syntax Highlighting (Must be LAST)
+zmodule zdharma-continuum/fast-syntax-highlighting

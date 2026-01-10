@@ -1,0 +1,105 @@
+export BLOCKSIZE=human-readable  # https://unix.stackexchange.com/a/36345
+export EDITOR='nvim'
+export FZF_ALT_C_COMMAND="rg --files --null | xargs -0 dirname | uniq"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export GIT_EDITOR='nvim'
+export LESS=FRX
+export MAVEN_ARGS="-q -Daether.dependencyCollector.impl=bf"
+export NVIM_CONFIG="$HOME/.config/nvim"  # git clone https://github.com/LazyVim/starter "$NVIM_CONFIG"
+export REPORTTIME=10
+export TZ='America/Los_Angeles'
+export VISUAL='nvim'
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  
+  path=(
+    $HOMEBREW_PREFIX/bin
+    $HOMEBREW_PREFIX/sbin
+    $HOMEBREW_PREFIX/opt/findutils/libexec/gnubin
+    $path
+  )
+fi
+
+path=($HOME/.local/bin $path)
+typeset -gU path
+
+umask u+rwx,g+rx,o+rx
+
+alias 'cd..'='cd ..'
+alias cp='cp -i'
+alias l='eza -lh --icons --git'
+alias la='eza -a --icons'
+alias ls='eza --icons'
+alias lt='eza --tree --icons'
+alias mv='mv -i'
+alias rm='rm -i'
+alias vi='nvim'
+alias vim='nvim'
+alias zj='zellij'
+alias zja='zellij attach'
+alias zjl='zellij list-sessions'
+
+setopt appendhistory
+setopt incappendhistory
+setopt sharehistory
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt ignoreeof
+HISTFILE=$HOME/.zhistory
+HISTSIZE=50000
+SAVEHIST=$HISTSIZE
+WORDCHARS=${WORDCHARS//[\/]} # Remove path separator from WORDCHARS.
+
+eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
+eval "$(starship init zsh)"
+
+# on mac setting built-in vim bindings first before zim modules load avoids breaking ctrl-r
+bindkey -v
+
+# Fuzzy matching & case-insensitivity
+# This matches: lowercase to uppercase, and allows partial matches across separators like '-' or '_'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Modern UI feedback
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
+
+# Enhanced fzf-tab behavior
+# Show a preview of directory contents when completing 'cd'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 --color=always $realpath'
+zstyle ':fzf-tab:*' switch-group ',' '.'
+
+# Fuzzy matching & case-insensitivity
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+
+# Disable sort when completing 'git checkout'
+zstyle ':completion:*:git-checkout:*' sort false
+
+ZIM_HOME=~/.zim
+source ${ZIM_HOME}/init.zsh
+
+# https://unix.stackexchange.com/questions/6620/how-to-edit-command-line-in-full-screen-editor-in-zsh
+bindkey -M vicmd v edit-command-line
+
+# Search for the prefix you've typed (or just cycle if empty)
+zmodload zsh/terminfo
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+[[ -n "$terminfo[kcuu1]" ]] && bindkey "$terminfo[kcuu1]" up-line-or-beginning-search
+[[ -n "$terminfo[kcud1]" ]] && bindkey "$terminfo[kcud1]" down-line-or-beginning-search
+
+eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(chezmoi completion zsh)"
+eval "$(gh completion -s zsh)"
+eval "$(mise completion zsh)"
+
+if [ -f "$HOME/.zshrc.local" ]; then
+    source "$HOME/.zshrc.local"
+fi

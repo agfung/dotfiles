@@ -1,0 +1,14 @@
+theme=Dark+
+
+font-family = SF Mono Regular
+font-size = 16
+
+window-height = 32
+window-width = 128
+
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = true
+
+background-opacity = 0.96
+background-blur-radius = 40

@@ -1,0 +1,46 @@
+# ~/.config/starship.toml
+
+format = "$hostname$directory$git_branch$git_status$character"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style) "
+style = "bold yellow"
+trim_at = "."
+
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+style = "bold blue"
+format = "in [$path]($style) "
+
+[git_branch]
+symbol = "" 
+style = "bold magenta"
+format = "on [$branch]($style)"
+
+[git_status]
+modified = "!"
+untracked = "?"
+stashed = '\$'
+staged = "+"
+deleted = "x"
+renamed = "»"
+diverged = "↕"
+ahead = "⇡"
+behind = "⇣"
+style = "bold red"
+format = " ([$all_status$ahead_behind]($style))"
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "
+
+[nodejs]
+disabled = true
+[python]
+disabled = true
+[rust]
+disabled = true
+[package]
+disabled = true

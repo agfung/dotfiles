@@ -1,0 +1,60 @@
+# vim: tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+packages:
+  common:
+    - aria2
+    - atuin
+    - cloc
+    - curl
+    - exiv2
+    - eza
+    - fzf
+    - git
+    - git-delta
+    - htop
+    - imagemagick
+    - jless
+    - jq
+    - mediainfo
+    - mise
+    - mosh
+    - mpv
+    - ncdu
+    - neovim
+    - nmap
+    - p7zip
+    - pigz
+    - progress
+    - pv
+    - pwgen
+    - ranger
+    - ripgrep
+    - rlwrap
+    - starship
+    - tig
+    - tmux
+    - tree
+    - xh
+    - unzip
+    - wget
+    - zellij
+    - zip
+    - zoxide
+    - zsh
+
+  arch:
+    - docker
+    - docker-compose
+    - github-cli
+    - moreutils
+    - neovim-symlinks
+    - nerd-fonts-complete
+    - renameutils
+    - zsh-zim-git
+
+  darwin:
+    - gh
+    - moreutils
+    - renameutils
+
+  darwin_casks:
+    - orbstack  # includes: docker, docker-compose, kubectl

@@ -1,0 +1,28 @@
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+
+Include config.d/*
+
+Compression           no
+StrictHostKeyChecking no
+
+CheckHostIP            no
+UserKnownHostsFile     /dev/null
+
+PubkeyAcceptedAlgorithms +ssh-rsa
+HostkeyAlgorithms        +ssh-rsa
+
+Host *
+  ServerAliveInterval  30
+  ServerAliveCountMax  10
+  SetEnv TERM=xterm-256color
+  # https://blog.twogate.com/entry/2020/07/30/benchmarking-ssh-connection-what-is-the-fastest-cipher
+  Ciphers ^aes128-ctr
+  KexAlgorithms ^curve25519-sha256
+
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+  User git
