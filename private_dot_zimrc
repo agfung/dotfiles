@@ -16,5 +16,8 @@ zmodule completion
 zmodule fzf
 zmodule Aloxaf/fzf-tab
 
-# 5. Syntax Highlighting (Must be LAST)
+# 5. Autosuggestions (Before syntax highlighting)
+zmodule zsh-users/zsh-autosuggestions
+
+# 6. Syntax Highlighting (Must be LAST)
 zmodule zdharma-continuum/fast-syntax-highlighting
