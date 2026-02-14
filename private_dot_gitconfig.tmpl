@@ -2,9 +2,14 @@
 
 [user]
   name = Andrew Fung
+  email = {{ .email }}
 
 [credential]
-  helper = store
+{{- if eq .chezmoi.os "darwin" }}
+  helper = osxkeychain
+{{- else }}
+  helper = cache --timeout=86400
+{{- end }}
 
 [init]
   defaultBranch = main           # Modern branch naming standard

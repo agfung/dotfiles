@@ -3,10 +3,12 @@ packages:
   common:
     - aria2
     - atuin
+    - bat
     - cloc
     - curl
     - exiv2
     - eza
+    - fd
     - fzf
     - git
     - git-delta

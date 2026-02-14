@@ -28,7 +28,6 @@ config.colors = {
 }
 config.window_decorations = "RESIZE"
 config.use_fancy_tab_bar = false
-config.hide_tab_bar_if_only_one_tab = true
 
 config.window_background_gradient = {
 	-- Can be "Vertical" or "Horizontal".  Specifies the direction
