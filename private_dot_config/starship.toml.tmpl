@@ -1,10 +1,15 @@
-# ~/.config/starship.toml
+# ~/.config/starship.toml.tmpl
+
+{{- $host := .chezmoi.hostname -}}
+{{- $val := index $host 0 -}}
+{{- $glyphs := list "Ψ" "Φ" "Υ" "Ξ" "Σ" "Δ" "π" "Θ" "Γ" "Λ" "Ω" "󰈸" "󱐌" "󰇄" "󰒄" "󰒋" "󰚗" "󰠱" "󱗆" "󰋜" "󰙗" "󰈀" "󰥛" "󰋉" "󱉟" "󰒈" -}}
+{{ $glyph := index $glyphs (mod $val 26) }}
 
 format = "$hostname$directory$git_branch$git_status$character"
 
 [hostname]
 ssh_only = false
-format = "[$hostname]($style) "
+format = "[$hostname]($style) [{{ $glyph }}]($style) "
 style = "bold yellow"
 trim_at = "."
 
@@ -17,7 +22,7 @@ format = "in [$path]($style) "
 [git_branch]
 symbol = "" 
 style = "bold magenta"
-format = "on [$branch]($style)"
+format = "on [$symbol$branch]($style)"
 
 [git_status]
 modified = "!"
