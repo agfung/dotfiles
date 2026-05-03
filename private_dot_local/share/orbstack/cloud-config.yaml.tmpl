@@ -1,0 +1,18 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+packages:
+  - curl
+  - git
+  - zsh
+
+runcmd:
+  - sh -c "$(curl -fsLS https://get.chezmoi.io)" -- -b /usr/local/bin
+  - |
+    set -eu
+    user=$(cat /etc/passwd | grep '/home' | tail -n1 | cut -d: -f1)
+    echo "user: $user"
+    sudo -u "$user" chezmoi init --apply agfung

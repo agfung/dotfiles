@@ -1,0 +1,72 @@
+#!/bin/bash
+# vim: set ft=sh ts=2 sw=2 et:
+set -euo pipefail
+
+COMMON_PKGS=({{ range .packages.common }}{{ . | quote }} {{ end }})
+ARCH_PKGS=({{ range .packages.arch }}{{ . | quote }} {{ end }})
+DEBIAN_PKGS=({{ range .packages.debian }}{{ . | quote }} {{ end }})
+MAC_PKGS=({{ range .packages.darwin }}{{ . | quote }} {{ end }})
+MAC_CASKS=({{ range .packages.darwin_casks }}{{ . | quote }} {{ end }})
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "Installing for Darwin ..."
+  pkgs=("${COMMON_PKGS[@]}" "${MAC_PKGS[@]}")
+
+  missing_pkgs=()
+  for p in "${pkgs[@]}"; do
+    if ! brew list --formula "$p" >/dev/null 2>&1; then
+      missing_pkgs+=("$p")
+    fi
+  done
+
+  missing_casks=()
+  for c in "${MAC_CASKS[@]}"; do
+    if ! brew list --cask "$c" >/dev/null 2>&1; then
+      missing_casks+=("$c")
+    fi
+  done
+
+  if ((${#missing_pkgs[@]})); then
+    brew install "${missing_pkgs[@]}"
+  fi
+
+  if ((${#missing_casks[@]})); then
+    brew install --cask "${missing_casks[@]}"
+  fi
+elif [[ -f /etc/os-release ]]; then
+  . /etc/os-release
+
+  case "$ID" in
+    arch)
+      echo "Installing for Arch ..."
+      if command -v yay >/dev/null 2>&1; then
+        yay -S --needed --noconfirm "${COMMON_PKGS[@]}" "${ARCH_PKGS[@]}"
+      else
+        sudo pacman -S --needed --noconfirm "${COMMON_PKGS[@]}" "${ARCH_PKGS[@]}"
+      fi
+      ;;
+
+    debian|ubuntu)
+      echo "Installing for Debian ..."
+      sudo apt-get update -qq
+      sudo apt-get install -qq -y -o=Dpkg::Use-Pty=0 "${COMMON_PKGS[@]}" "${DEBIAN_PKGS[@]}"
+
+      if ! command -v btm >/dev/null 2>&1; then
+        a="$(dpkg --print-architecture)"
+        v=0.12.3
+        curl -qfLO "https://github.com/ClementTsang/bottom/releases/download/$v/bottom_${v}-1_${a}.deb"
+        sudo apt-get -qq -y install "./bottom_${v}-1_${a}.deb"
+        rm -f "./bottom_${v}-1_${a}.deb"
+      fi
+      ;;
+
+    *)
+      echo "Unsupported Linux distro: $ID" >&2
+      exit 1
+      ;;
+  esac
+
+else
+  echo "Unsupported OS: $OSTYPE" >&2
+  exit 1
+fi

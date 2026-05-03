@@ -1,0 +1,17 @@
+#!/bin/bash
+# vim: set ft=sh ts=2 sw=2 et:
+set -euo pipefail
+
+mkdir -p "$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
+
+if ! command -v mise >/dev/null 2>&1; then
+  curl -qfsSL https://mise.run | sh
+fi
+
+if [[ ! -d "$HOME/.zim" ]]; then
+  export ZIM_HOME="$HOME/.zim"
+  mkdir -p "$ZIM_HOME"
+  curl -fsSL https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh -o "$ZIM_HOME/zimfw.zsh"
+  zsh "$ZIM_HOME/zimfw.zsh" install
+fi

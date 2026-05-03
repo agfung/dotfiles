@@ -76,7 +76,7 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 # Disable sort when completing 'git checkout'
 zstyle ':completion:*:git-checkout:*' sort false
 
-ZIM_HOME=~/.zim
+export ZIM_HOME=~/.zim
 source ${ZIM_HOME}/init.zsh
 
 # https://unix.stackexchange.com/questions/6620/how-to-edit-command-line-in-full-screen-editor-in-zsh

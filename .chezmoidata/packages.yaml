@@ -8,55 +8,56 @@ packages:
     - curl
     - exiv2
     - eza
-    - fd
     - fzf
+    - gh
     - git
     - git-delta
     - htop
-    - imagemagick
-    - jless
     - jq
     - mediainfo
-    - mise
+    - moreutils
     - mosh
-    - mpv
     - ncdu
     - neovim
     - nmap
-    - p7zip
-    - pigz
     - progress
     - pv
     - pwgen
     - ranger
+    - renameutils
     - ripgrep
     - rlwrap
     - starship
     - tig
     - tmux
     - tree
-    - xh
     - unzip
     - wget
-    - zellij
+    - xh
     - zip
     - zoxide
     - zsh
+    - zstd
 
   arch:
-    - docker
-    - docker-compose
-    - github-cli
-    - moreutils
-    - neovim-symlinks
-    - nerd-fonts-complete
-    - renameutils
-    - zsh-zim-git
+    - bottom
+    - fd
+    - mise
+    - zellij
+    - zimfw
+
+  debian:
+    - fd-find
+    # bottom isn't in debian repos, installed via script
+    # mise isn't in debian repos, installed via script
+    # zellij isn't in debian repos, install manually: bash <(curl -qL https://zellij.dev/launch)
+    # zimfw isn't in debian repos, installed via script
 
   darwin:
-    - gh
-    - moreutils
-    - renameutils
+    - bottom
+    - mise
+    - zellij
+    - zimfw
 
   darwin_casks:
-    - orbstack  # includes: docker, docker-compose, kubectl
+    - orbstack
