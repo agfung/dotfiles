@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v pi >/dev/null 2>&1; then
+  echo "pi is not installed." >&2
+  exit 1
+fi
+
+packages=(
+  # https://pi.dev/packages/pi-subagents
+  # For delegating tasks to subagents with chains, parallel execution, and TUI clarification
+  "npm:pi-subagents"
+
+  # https://pi.dev/packages/pi-web-access
+  # Web search, URL fetching, GitHub repo cloning, PDF extraction, YouTube video
+  # understanding, and local video analysis
+  "npm:pi-web-access"
+
+  # https://pi.dev/packages/pi-powerline-footer
+  # Powerline-style status bar extension
+  "npm:pi-powerline-footer"
+
+  # https://pi.dev/packages/context-mode
+  # MCP plugin that saves 98% of your context window.
+  "npm:context-mode"
+
+  # https://pi.dev/packages/@heart-of-gold/toolkit
+  # 32 skills for AI coding agents. Five plugins... Named after The Hitchhiker's
+  # Guide to the Galaxy because the universe is absurd and your tools should at
+  # least have personality.
+  "npm:@heart-of-gold/toolkit"
+)
+
+for pkg in "${packages[@]}"; do
+  echo "Installing $pkg"
+  pi install "$pkg"
+done

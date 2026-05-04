@@ -2,5 +2,6 @@
 
 exec orb create debian:trixie ${1:-box} \
   --isolated \
-  --mount "$HOME/projects:/projects" \
+  --mount "$HOME/projects/code:/code" \
+  --mount "$HOME/projects/docs:/docs" \
   -c $HOME/.local/share/orbstack/cloud-config.yaml
