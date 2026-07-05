@@ -27,8 +27,33 @@
   # Modern features for a "light" and fast setup
   navigate = true    # Use n/N to jump between file diffs
   line-numbers = true
-  side-by-side = true
-  syntax-theme = Coldark-Dark # Pairs well with AdventureTime
+  features = discord
+
+[delta "discord"]
+    commit-style                  = omit
+    file-style                    = 34 ul
+    file-decoration-style         = none
+    hunk-header-style             = omit
+    minus-style                   = 31
+    minus-non-emph-style          = 31
+    minus-emph-style              = 40
+    minus-empty-line-marker-style = 31
+    zero-style                    = 30
+    plus-style                    = 32
+    plus-non-emph-style           = 32
+    plus-emph-style               = 40
+    grep-file-style               = 34
+    grep-line-number-style        = 34
+    whitespace-error-style        = 41
+    blame-code-style              = omit
+    true-color                    = never
+    file-modified-label           = changed:
+    right-arrow                   = >
+    hyperlinks                    = false
+    keep-plus-minus-markers       = true
+    diff-stat-align-width         = 10
+    syntax-theme                  = none
+    width                         = variable
 
 [maintenance]
   auto = true                    # Enable background optimization globally
