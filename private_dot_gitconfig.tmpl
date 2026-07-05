@@ -55,6 +55,14 @@
     syntax-theme                  = none
     width                         = variable
 
+[difftool "difftastic"]
+  cmd = difft "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
+
+[alias]
+  dft = difftool -t difftastic
+  dlog = -c diff.external=difft log -p --ext-diff
+  dshow = -c diff.external=difft show --ext-diff
+
 [maintenance]
   auto = true                    # Enable background optimization globally
 
