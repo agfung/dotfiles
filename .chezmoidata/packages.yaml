@@ -6,6 +6,7 @@ packages:
     - bat
     - cloc
     - curl
+    - difftastic
     - exiv2
     - eza
     - fzf
