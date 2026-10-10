@@ -8,13 +8,13 @@ packages:
     - curl
     - difftastic
     - exiv2
-    - eza
     - fzf
     - gh
     - git
     - git-delta
     - htop
     - jq
+    - lsd
     - mediainfo
     - moreutils
     - mosh
